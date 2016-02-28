@@ -8,13 +8,11 @@ var todoList = new TodoList();
 
 var Router = Backbone.Router.extend({
   routes: {
-    '' : 'displayAllTodos',
-    'filter/:filter' : 'setFilter',
-    '*path' : 'displayError',
+    ''               : 'displayAllTodos',  // main page
+    'filter/:filter' : 'setFilter',        // filtered results
   },
   
   setFilter: function(filter) {
-    console.log(filter);
     switch (filter) {
       case 'pending':
         todoList.trigger('resetPending');
@@ -31,16 +29,14 @@ var Router = Backbone.Router.extend({
   displayAllTodos: function(path) {
     todoList.trigger('resetAll');
   },
-  
-  displayError: function() {
-    console.log('errorpage');
-  },
 });
 
 var initialize = function() {
-  var router = new Router();
+  // Begin routing and display the main page
+  var router  = new Router();
   var appView = new AppView({ model: todoList });
 
+  // Use the history module to keep track of the page
   Backbone.history.start();
 };
 
